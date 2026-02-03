@@ -9,7 +9,6 @@ import {
   Table,
   Users,
   Activity,
-  TrendingUp,
   FileText,
   Clock,
   MapPin,
@@ -18,42 +17,6 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
-
-interface StatCardProps {
-  title: string
-  value: string | number
-  description: string
-  icon: React.ReactNode
-  trend?: {
-    value: string
-    isPositive: boolean
-  }
-}
-
-const StatCard = ({ title, value, description, icon, trend }: StatCardProps) => {
-  return (
-    <Card className="hover-lift animate-slide-up">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="h-4 w-4 text-muted-foreground transition-transform duration-300 hover:scale-110">{icon}</div>
-      </CardHeader>
-      <CardContent>
-        <div className="text-xl font-bold transition-all duration-300">{value}</div>
-        <p className="text-xs text-muted-foreground mt-1">{description}</p>
-        {trend && (
-          <div
-            className={`text-xs mt-2 flex items-center gap-1 font-medium animate-fade-in ${
-              trend.isPositive ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            <TrendingUp className="h-3 w-3" />
-            {trend.value}
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  )
-}
 
 interface RecentActivity {
   id: string
@@ -76,7 +39,6 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
     activeUsers: 0,
     totalRecords: 0,
   })
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchOverviewData()
@@ -84,7 +46,6 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
 
   const fetchOverviewData = async () => {
     try {
-      setLoading(true)
       const response = await fetch('/api/overview')
       if (response.ok) {
         const data = await response.json()
@@ -93,8 +54,6 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
       }
     } catch (error) {
       console.error('Failed to fetch overview data:', error)
-    } finally {
-      setLoading(false)
     }
   }
   return (
@@ -159,11 +118,11 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
             <CardDescription>Common tasks and shortcuts</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline" onClick={onNavigateToTables}>
+            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline" onClick={() => onNavigateToTables?.()}>
               <Table className="mr-2 h-4 w-4" />
               View All Tables
             </Button>
-            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline" onClick={onNavigateToTables}>
+            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline" onClick={() => onNavigateToTables?.()}>
               <MapPin className="mr-2 h-4 w-4" />
               Manage Routes
             </Button>

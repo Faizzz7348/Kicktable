@@ -3,11 +3,8 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  Bot,
   Command,
-  Frame,
   GalleryVerticalEnd,
-  Map,
   PieChart,
   SquareTerminal,
 } from "lucide-react"
@@ -15,7 +12,6 @@ import SelangorIcon from "@/assets/icon/960px-Flag_of_Selangor.svg.png"
 import KLIcon from "@/assets/icon/kl-flag.png"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {

@@ -17,27 +17,39 @@ import { AllTables } from "@/pages/AllTables"
 import { TableDetail } from "@/pages/TableDetail"
 import { Overview } from "@/pages/Overview"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { EditModeProvider, useEditMode } from "@/contexts/EditModeProvider"
-import { useState } from "react"
+import { EditModeProvider } from "@/contexts/EditModeProvider"
+import { useState, useEffect } from "react"
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<"overview" | "list" | "detail">("overview")
   const [currentRegion, setCurrentRegion] = useState<"selangor" | "kl">("selangor")
   const [selectedTableId, setSelectedTableId] = useState<string | undefined>()
   const [selectedTableName, setSelectedTableName] = useState<string | undefined>()
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const handleNavigate = (view: "overview" | "list" | "detail", region?: "selangor" | "kl", tableId?: string, tableName?: string) => {
-    setCurrentView(view)
-    if (region) {
-      setCurrentRegion(region)
-    }
-    if (tableId) {
-      setSelectedTableId(tableId)
-    }
-    if (tableName) {
-      setSelectedTableName(tableName)
-    }
+    setIsTransitioning(true)
+    
+    // Short delay for fade out effect
+    setTimeout(() => {
+      setCurrentView(view)
+      if (region) {
+        setCurrentRegion(region)
+      }
+      if (tableId) {
+        setSelectedTableId(tableId)
+      }
+      if (tableName) {
+        setSelectedTableName(tableName)
+      }
+      setIsTransitioning(false)
+    }, 150)
   }
+
+  useEffect(() => {
+    // Reset transitioning state when component mounts
+    setIsTransitioning(false)
+  }, [])
 
   return (
     <SidebarProvider>
@@ -72,25 +84,27 @@ function AppContent() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-4">
-          {currentView === "overview" ? (
-            <div key="overview" className="animate-fade-in">
-              <Overview onNavigateToTables={(region) => {
-                if (region) {
-                  handleNavigate("list", region)
-                } else {
-                  handleNavigate("list")
-                }
-              }} />
-            </div>
-          ) : currentView === "list" ? (
-            <div key={`list-${currentRegion}`} className="animate-fade-in">
-              <AllTables onViewTable={(tableId, tableName) => handleNavigate("detail", currentRegion, tableId, tableName)} region={currentRegion} />
-            </div>
-          ) : (
-            <div key={`detail-${selectedTableId}`} className="animate-fade-in">
-              <TableDetail onBack={() => handleNavigate("list", currentRegion)} tableId={selectedTableId} tableName={selectedTableName} />
-            </div>
-          )}
+          <div className={`page-transition ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+            {currentView === "overview" ? (
+              <div key="overview" className="animate-fade-in">
+                <Overview onNavigateToTables={(region) => {
+                  if (region) {
+                    handleNavigate("list", region)
+                  } else {
+                    handleNavigate("list")
+                  }
+                }} />
+              </div>
+            ) : currentView === "list" ? (
+              <div key={`list-${currentRegion}`} className="animate-fade-in">
+                <AllTables onViewTable={(tableId, tableName) => handleNavigate("detail", currentRegion, tableId, tableName)} region={currentRegion} />
+              </div>
+            ) : (
+              <div key={`detail-${selectedTableId}`} className="animate-fade-in">
+                <TableDetail onBack={() => handleNavigate("list", currentRegion)} tableId={selectedTableId} tableName={selectedTableName} />
+              </div>
+            )}
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>

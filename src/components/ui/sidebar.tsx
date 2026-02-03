@@ -66,7 +66,6 @@ function SidebarProvider({
 }) {
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
-  const [isLandscape, setIsLandscape] = React.useState(false)
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
@@ -91,29 +90,6 @@ function SidebarProvider({
   const toggleSidebar = React.useCallback(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
   }, [isMobile, setOpen, setOpenMobile])
-
-  // Detect landscape orientation and auto-open sidebar
-  React.useEffect(() => {
-    const mediaQueryList = window.matchMedia("(orientation: landscape)")
-    
-    const handleOrientationChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsLandscape(e.matches)
-      if (e.matches) {
-        // Force open sidebar in landscape mode
-        setOpenMobile(true)
-      }
-    }
-
-    // Set initial state
-    setIsLandscape(mediaQueryList.matches)
-    if (mediaQueryList.matches) {
-      setOpenMobile(true)
-    }
-
-    // Listen for orientation changes
-    mediaQueryList.addEventListener("change", handleOrientationChange)
-    return () => mediaQueryList.removeEventListener("change", handleOrientationChange)
-  }, [])
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {

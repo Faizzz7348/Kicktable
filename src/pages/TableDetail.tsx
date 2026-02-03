@@ -5,7 +5,6 @@ import {
   Download,
   Filter,
   Plus,
-  Edit,
   Trash2,
   MoreVertical,
   ArrowUpDown,
@@ -21,6 +20,7 @@ import {
   Power,
   Info,
   Loader2,
+  FileText,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -32,25 +32,17 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { FileText } from "lucide-react"
 import { useEditMode } from "@/contexts/EditModeProvider"
 
 // Debounce helper
 function useDebounce<T extends (...args: any[]) => any>(callback: T, delay: number) {
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
+  const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout> | null>(null)
 
   return useCallback(
     (...args: Parameters<T>) => {
