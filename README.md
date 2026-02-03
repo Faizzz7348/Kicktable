@@ -12,6 +12,7 @@ Table management system dengan Prisma Database.
 - [Security Fix](docs/SECURITY_FIX.md)
 - [PWA Setup](docs/PWA_SETUP.md)
 - [Vercel Deployment](docs/VERCEL_DEPLOYMENT.md)
+- [Animations & Transitions](docs/ANIMATIONS.md) ✨ NEW
 
 ## 🚀 Quick Start
 

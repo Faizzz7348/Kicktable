@@ -20,6 +20,7 @@ import {
   Save,
   Power,
   Info,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -506,9 +507,9 @@ export function TableDetail({ onBack, tableId = "1", tableName: tableNameProp }:
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center py-12 animate-fade-in">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-gray-100 mx-auto"></div>
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
           <p className="mt-4 text-muted-foreground">Loading table data...</p>
         </div>
       </div>
@@ -1092,7 +1093,7 @@ export function TableDetail({ onBack, tableId = "1", tableName: tableNameProp }:
               />
               {checkingDuplicate && (
                 <p className="text-xs text-muted-foreground flex items-center gap-1">
-                  <span className="inline-block animate-spin">⏳</span> Checking for duplicates...
+                  <Loader2 className="h-3 w-3 animate-spin" /> Checking for duplicates...
                 </p>
               )}
             </div>
@@ -1279,7 +1280,7 @@ export function TableDetail({ onBack, tableId = "1", tableName: tableNameProp }:
           
           {isMoving ? (
             <div className="flex flex-col items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
               <p className="mt-4 text-muted-foreground">Moving rows...</p>
             </div>
           ) : moveStep === 'region' ? (

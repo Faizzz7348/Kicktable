@@ -32,17 +32,17 @@ interface StatCardProps {
 
 const StatCard = ({ title, value, description, icon, trend }: StatCardProps) => {
   return (
-    <Card>
+    <Card className="hover-lift animate-slide-up">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="h-4 w-4 text-muted-foreground">{icon}</div>
+        <div className="h-4 w-4 text-muted-foreground transition-transform duration-300 hover:scale-110">{icon}</div>
       </CardHeader>
       <CardContent>
-        <div className="text-xl font-bold">{value}</div>
+        <div className="text-xl font-bold transition-all duration-300">{value}</div>
         <p className="text-xs text-muted-foreground mt-1">{description}</p>
         {trend && (
           <div
-            className={`text-xs mt-2 flex items-center gap-1 ${
+            className={`text-xs mt-2 flex items-center gap-1 font-medium animate-fade-in ${
               trend.isPositive ? "text-green-600" : "text-red-600"
             }`}
           >
@@ -102,7 +102,7 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
       {/* Main Content Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         {/* Recent Activity */}
-        <Card className="col-span-4">
+        <Card className="col-span-4 animate-slide-up" style={{ animationDelay: '400ms' }}>
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>
@@ -111,10 +111,11 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentActivities.map((activity) => (
+              {recentActivities.map((activity, index) => (
                 <div
                   key={activity.id}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between animate-fade-in hover:bg-accent/50 p-2 rounded-lg transition-all"
+                  style={{ animationDelay: `${450 + index * 50}ms` }}
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -152,25 +153,25 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
         </Card>
 
         {/* Quick Actions & Stats */}
-        <Card className="col-span-3">
+        <Card className="col-span-3 animate-slide-up" style={{ animationDelay: '500ms' }}>
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
             <CardDescription>Common tasks and shortcuts</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button className="w-full justify-start" variant="outline" onClick={onNavigateToTables}>
+            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline" onClick={onNavigateToTables}>
               <Table className="mr-2 h-4 w-4" />
               View All Tables
             </Button>
-            <Button className="w-full justify-start" variant="outline" onClick={onNavigateToTables}>
+            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline" onClick={onNavigateToTables}>
               <MapPin className="mr-2 h-4 w-4" />
               Manage Routes
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline">
               <FileText className="mr-2 h-4 w-4" />
               Generate Report
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button className="w-full justify-start transition-all hover:scale-105 hover:shadow-md" variant="outline">
               <Users className="mr-2 h-4 w-4" />
               Manage Users
             </Button>

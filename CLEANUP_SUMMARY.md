@@ -119,3 +119,19 @@ npx prisma db push
 # 4. Start app
 npm run dev
 ```
+
+## Recent Updates 🎨
+
+### Animation & Transition Improvements
+✨ **New in latest update:**
+- Smooth page transitions with fade-in effects
+- Card hover animations with lift and shadow
+- Staggered list animations for better UX
+- Loading skeleton with shimmer effects
+- Enhanced button interactions
+- Improved dialog/modal animations
+- Professional stat card animations
+- Activity feed with smooth transitions
+
+See [docs/ANIMATIONS.md](docs/ANIMATIONS.md) for full details.
+

@@ -8,6 +8,7 @@ import {
   Edit,
   Trash2,
   Download,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -187,9 +188,9 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center py-12 animate-fade-in">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-gray-100 mx-auto"></div>
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
           <p className="mt-4 text-muted-foreground">Loading tables...</p>
         </div>
       </div>
@@ -247,7 +248,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
           <h1 className="text-xl font-bold tracking-tight text-center">{regionName}</h1>
         </div>
         {isEditModeEnabled && (
-          <Button className="gap-2" onClick={() => setShowCreateModal(true)}>
+          <Button className="gap-2 transition-all hover:scale-105" onClick={() => setShowCreateModal(true)}>
             <Plus className="h-4 w-4" />
             Create New Table
           </Button>
@@ -269,10 +270,41 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
 
       {/* Tables Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredTables.map((table) => (
+        {loading ? (
+          // Loading skeleton with shimmer effect
+          Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="animate-slide-up rounded-lg border bg-card p-5" style={{ animationDelay: `${i * 50}ms` }}>
+              <div className="space-y-3">
+                <div className="h-5 w-3/4 bg-muted animate-pulse rounded" />
+                <div className="h-4 w-full bg-muted animate-pulse rounded" />
+                <div className="h-4 w-5/6 bg-muted animate-pulse rounded" />
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="h-4 bg-muted animate-pulse rounded" />
+                  <div className="h-4 bg-muted animate-pulse rounded" />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : filteredTables.length === 0 ? (
+          <div className="col-span-full text-center py-12 animate-fade-in">
+            <FileText className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-semibold mb-2">No tables found</h3>
+            <p className="text-muted-foreground mb-4">
+              {searchQuery ? "Try adjusting your search" : "Get started by creating your first table"}
+            </p>
+            {!searchQuery && isEditModeEnabled && (
+              <Button onClick={() => setShowCreateModal(true)} className="transition-all hover:scale-105">
+                <Plus className="h-4 w-4 mr-2" />
+                Create Table
+              </Button>
+            )}
+          </div>
+        ) : (
+          filteredTables.map((table, index) => (
           <div
             key={table.id}
-            className="group relative overflow-hidden rounded-lg border bg-card p-5 transition-all hover:shadow-md"
+            className="group relative overflow-hidden rounded-lg border bg-card p-5 hover-lift animate-slide-up cursor-pointer"
+            style={{ animationDelay: `${index * 50}ms` }}
           >
             {isEditModeEnabled ? (
               <>
@@ -316,7 +348,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0"
+                      className="h-8 w-8 p-0 transition-all hover:scale-110 hover:bg-primary/10"
                       onClick={() => onViewTable?.(table.id, table.name)}
                     >
                       <Eye className="h-4 w-4" />
@@ -324,7 +356,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0"
+                      className="h-8 w-8 p-0 transition-all hover:scale-110 hover:bg-primary/10"
                       onClick={() => openEditModal(table)}
                     >
                       <Edit className="h-4 w-4" />
@@ -332,7 +364,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive transition-all hover:scale-110 hover:bg-destructive/10"
                       onClick={() => openDeleteDialog(table)}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -422,19 +454,9 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
               </>
             )}
           </div>
-        ))}
+          ))
+        )}
       </div>
-
-      {/* Empty State */}
-      {filteredTables.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-12 text-center">
-          <FileText className="h-12 w-12 text-muted-foreground/50 mb-4" />
-          <h3 className="text-lg font-semibold">No tables found</h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            Try adjusting your search query
-          </p>
-        </div>
-      )}
 
       {/* Create New Table Modal */}
       <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
