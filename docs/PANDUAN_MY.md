@@ -13,11 +13,7 @@ npm run dev:server
 
 ### Langkah 2: Setup Database
 ```bash
-# Guna script auto setup
-chmod +x setup.sh
-./setup.sh
-
-# ATAU setup manual:
+# Setup manual:
 npm install                # Install packages
 npx prisma generate        # Generate Prisma client
 npx prisma db push         # Buat tables dalam database

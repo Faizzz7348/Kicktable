@@ -1,4 +1,4 @@
-# Lasttable - Table Management Application
+# Kicktable - Table Management Application
 
 ## Setup Instructions
 
@@ -11,7 +11,8 @@ npm install
 
 Create a `.env` file in the root directory with your database URL:
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/lasttable"
+DATABASE_URL="postgresql://user:password@localhost:5432/kicktable"
+VITE_GOOGLE_MAPS_API_KEY="your-google-maps-api-key"
 ```
 
 ### 3. Initialize Prisma
@@ -26,7 +27,7 @@ Push schema to database:
 npm run prisma:push
 ```
 
-Seed initial data:
+Seed initial data (optional):
 ```bash
 npm run prisma:seed
 ```
@@ -58,16 +59,12 @@ npm run prisma:studio
 ### ✅ Completed
 - Removed all mock data from components
 - Implemented database integration with Prisma
-- Created API routes for:
-  - Fetching tables by region
-  - Creating new tables
-  - Adding table rows
-  - Updating table data
-  - Deleting table rows
-  - Overview statistics
+- Created API routes for all CRUD operations
 - Fixed create table functionality with form validation
 - Added loading states
 - Implemented real-time data fetching
+- Added duplicate detection system
+- PWA support
 
 ## API Endpoints
 
@@ -78,6 +75,7 @@ npm run prisma:studio
 - `POST /api/tables/:id/data` - Add row to table
 - `PUT /api/tables/:id/data` - Update multiple rows
 - `DELETE /api/tables/:id/data/:rowId` - Delete a row
+- `GET /api/tables/:id/check-duplicate` - Check for duplicate codes
 
 ### Overview
 - `GET /api/overview` - Get dashboard statistics
@@ -99,4 +97,5 @@ The application uses PostgreSQL with the following models:
 - PostgreSQL
 - Express.js
 - Tailwind CSS
-- Radix UI Components
+- shadcn/ui Components
+- Google Maps API

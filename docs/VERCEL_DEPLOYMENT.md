@@ -187,4 +187,3 @@ For issues:
 2. Review this troubleshooting guide
 3. Check Prisma docs: https://www.prisma.io/docs
 4. Vercel docs: https://vercel.com/docs
-

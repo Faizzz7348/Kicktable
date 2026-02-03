@@ -9,12 +9,12 @@
 
 ### 2. Implemented Database Integration
 - Created API layer with Prisma ORM
-- Created Express.js backend server ([server.ts](server.ts))
-- Created API handlers ([src/api/tables.ts](src/api/tables.ts))
-- Added proxy configuration in [vite.config.ts](vite.config.ts)
+- Created Express.js backend server
+- Created API handlers ([src/api/tables.ts](../src/api/tables.ts))
+- Added proxy configuration in [vite.config.ts](../vite.config.ts)
 
 ### 3. Fixed Create Table Functionality
-**[AllTables.tsx](src/pages/AllTables.tsx)**:
+**[AllTables.tsx](../src/pages/AllTables.tsx)**:
 - Added `useEffect` to fetch tables on component mount and region change
 - Implemented `fetchTables()` function to get data from API
 - Implemented `handleCreateTable()` function with API POST request
@@ -22,7 +22,7 @@
 - Added form validation (disabled button when name is empty)
 - Added loading state with spinner
 
-**[TableDetail.tsx](src/pages/TableDetail.tsx)**:
+**[TableDetail.tsx](../src/pages/TableDetail.tsx)**:
 - Added `useEffect` to fetch table data on mount
 - Implemented `fetchTableData()` function
 - Updated `handleAddRow()` to use API POST
@@ -31,7 +31,7 @@
 - Fixed map markers to use lat/lng from data instead of hardcoded coordinates
 - Added loading state
 
-**[Overview.tsx](src/pages/Overview.tsx)**:
+**[Overview.tsx](../src/pages/Overview.tsx)**:
 - Added `useEffect` to fetch overview data
 - Implemented `fetchOverviewData()` function
 - Updated stats to use dynamic values from API
@@ -48,7 +48,7 @@
 - `PUT /api/tables/:id/data` - Update multiple rows
 - `DELETE /api/tables/:id/data/:rowId` - Delete a row
 
-**Functions in [src/api/tables.ts](src/api/tables.ts)**:
+**Functions in [src/api/tables.ts](../src/api/tables.ts)**:
 - `getTables(region)` - Fetch tables with metadata
 - `getTableById(id)` - Fetch single table with all rows
 - `createTable(data)` - Create new table
@@ -60,18 +60,18 @@
 
 ### 5. Updated Configuration
 
-**[package.json](package.json)**:
+**[package.json](../package.json)**:
 - Added `express`, `cors` dependencies
 - Added `@types/express`, `@types/cors`, `concurrently` dev dependencies
 - Added scripts:
   - `dev:server` - Run backend server
   - `dev:all` - Run both frontend and backend
 
-**[vite.config.ts](vite.config.ts)**:
+**[vite.config.ts](../vite.config.ts)**:
 - Added proxy configuration to forward `/api` requests to backend server
 
 ### 6. Documentation
-- Created [SETUP.md](SETUP.md) with complete setup instructions
+- Created SETUP.md with complete setup instructions
 - Documented all API endpoints
 - Listed all technologies used
 
@@ -94,17 +94,17 @@
 ## Files Modified
 
 ### Frontend Components
-- [src/pages/AllTables.tsx](src/pages/AllTables.tsx)
-- [src/pages/TableDetail.tsx](src/pages/TableDetail.tsx)
-- [src/pages/Overview.tsx](src/pages/Overview.tsx)
+- [src/pages/AllTables.tsx](../src/pages/AllTables.tsx)
+- [src/pages/TableDetail.tsx](../src/pages/TableDetail.tsx)
+- [src/pages/Overview.tsx](../src/pages/Overview.tsx)
 
 ### Backend/API
-- [server.ts](server.ts) (new)
-- [src/api/tables.ts](src/api/tables.ts) (new)
+- [api/server.ts](../api/server.ts)
+- [src/api/tables.ts](../src/api/tables.ts)
 
 ### Configuration
-- [package.json](package.json)
-- [vite.config.ts](vite.config.ts)
+- [package.json](../package.json)
+- [vite.config.ts](../vite.config.ts)
 
 ### Documentation
-- [SETUP.md](SETUP.md) (new)
+- [SETUP.md](SETUP.md)

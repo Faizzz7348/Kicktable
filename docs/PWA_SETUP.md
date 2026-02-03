@@ -1,7 +1,7 @@
-# PWA Setup Guide for LastTable
+# PWA Setup Guide for Kicktable
 
 ## Overview
-LastTable is now a Progressive Web App (PWA) that works offline and can be installed on devices.
+Kicktable is now a Progressive Web App (PWA) that works offline and can be installed on devices.
 
 ## Features Implemented
 
@@ -21,13 +21,13 @@ LastTable is now a Progressive Web App (PWA) that works offline and can be insta
 ## Files Structure
 
 ```
-/workspaces/Lasttable/
+/workspaces/Kicktable/
 ├── public/
 │   ├── manifest.json          # PWA manifest
 │   ├── sw.js                  # Service worker
 │   ├── pwa-icon.svg          # Source icon
-│   ├── pwa-icon-192.png      # App icon 192x192 (generate)
-│   └── pwa-icon-512.png      # App icon 512x512 (generate)
+│   ├── pwa-icon-192.png      # App icon 192x192
+│   └── pwa-icon-512.png      # App icon 512x512
 ├── src/
 │   └── lib/
 │       └── pwa.ts            # PWA utilities

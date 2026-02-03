@@ -115,13 +115,13 @@ GET /api/tables/:tableId/check-duplicate?code=123&rowId=abc
 ## Technical Implementation
 
 ### Files Modified
-1. **`/workspaces/Lasttable/api/lib/tables.ts`**
+1. **api/lib/tables.ts**
    - Added `checkDuplicateCode()` function
 
-2. **`/workspaces/Lasttable/api/server.ts`**
+2. **api/server.ts**
    - Added endpoint handler for duplicate checking
 
-3. **`/workspaces/Lasttable/src/pages/TableDetail.tsx`**
+3. **src/pages/TableDetail.tsx**
    - Added duplicate detection states
    - Added `checkDuplicate()` function with debouncing
    - Added visual indicators (red/yellow borders)

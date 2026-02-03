@@ -16,11 +16,7 @@ npm run dev:server
 
 ### 2. Run Database Setup
 ```bash
-# Option 1: Use the setup script
-chmod +x setup.sh
-./setup.sh
-
-# Option 2: Manual setup
+# Manual setup
 npm install
 npx prisma generate
 npx prisma db push
